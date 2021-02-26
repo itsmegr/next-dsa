@@ -31,6 +31,18 @@ void print(lptr LL)
     cout << LL->data << " ";
     print(LL->next);
 }
+
+void move_to_first(lptr &ll){
+    lptr prev =NULL;
+    lptr curr = ll;
+    while(curr->next!=NULL){
+        prev = curr;
+        curr = curr->next;
+    }
+    prev->next = NULL;
+    curr->next = ll;
+    ll = curr;
+}
 int main()
 {
 #ifndef ONLINE_JUDGE
@@ -49,4 +61,6 @@ int main()
         insert(LL, x);
         cin >> x;
     }
+    move_to_first(LL);
+    print(LL);
 }

@@ -1,8 +1,7 @@
 #include <bits/stdc++.h>
 using namespace std;
 typedef struct llnode *lptr;
-#define deb(x) cout << #x << "=" << x->data << endl
-#define deb2(x, y) cout << #x << "=" << x->data << "," << #y << "=" << y->data << endl
+
 struct llnode
 {
     int data;
@@ -24,12 +23,43 @@ void insert(lptr &LL, int x)
     temp2->next = temp;
 }
 
+
 void print(lptr LL)
 {
     if (LL == NULL)
         return;
     cout << LL->data << " ";
     print(LL->next);
+}
+void printst(stack<int> st){
+    if(st.empty()) return;
+    int x = st.top();
+    st.pop();
+    cout<<x<<" ";
+    printst(st);
+    st.push(x);
+}
+bool is_palindrome(lptr ll){
+    stack<int> st;
+    lptr sp=ll, fp=ll;
+    while(fp!=NULL){
+        st.push(sp->data);
+        sp = sp->next;
+        if(fp->next==NULL||fp->next->next==NULL){
+            fp = fp->next;
+            break;
+        }
+        fp = fp->next->next;
+    }
+    printst(st);
+    cout<<endl;
+    if(fp==NULL) st.pop();
+    while(sp!=NULL&&!st.empty()){
+        if(sp->data!=st.top()) return false;
+        sp = sp->next;
+        st.pop();
+    }
+    return true;
 }
 int main()
 {
@@ -49,4 +79,5 @@ int main()
         insert(LL, x);
         cin >> x;
     }
+    cout<<is_palindrome(LL)<<endl;
 }

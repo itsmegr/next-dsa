@@ -1,8 +1,7 @@
 #include <bits/stdc++.h>
 using namespace std;
 typedef struct llnode *lptr;
-#define deb(x) cout << #x << "=" << x->data << endl
-#define deb2(x, y) cout << #x << "=" << x->data << "," << #y << "=" << y->data << endl
+
 struct llnode
 {
     int data;
@@ -22,6 +21,48 @@ void insert(lptr &LL, int x)
     while (temp2->next != NULL)
         temp2 = temp2->next;
     temp2->next = temp;
+}
+
+lptr reverse(lptr ll)
+{
+
+    lptr prev = NULL, next;
+    lptr curr = ll;
+    while (curr != NULL)
+    {
+        next = curr->next;
+        curr->next = prev;
+        prev = curr;
+        curr = next;
+    }
+    return prev;
+}
+
+lptr reverse_m_n(lptr ll, int m, int n)
+{
+    lptr prev = NULL, next;
+    lptr curr = ll;
+    int k = 1;
+    while (k < m)
+    {
+        prev = curr;
+        curr = curr->next;
+        k++;
+    }
+    lptr join1 = prev;
+    lptr join2 = curr;
+
+    while (k <= n)
+    {
+        next = curr->next;
+        curr->next = prev;
+        prev = curr;
+        curr = next;
+        k++;
+    }
+    join1->next = prev;
+    join2->next = curr;
+    return ll;
 }
 
 void print(lptr LL)
@@ -49,4 +90,6 @@ int main()
         insert(LL, x);
         cin >> x;
     }
+    // print(reverse(LL));
+    print(reverse_m_n(LL, 2, 6));
 }

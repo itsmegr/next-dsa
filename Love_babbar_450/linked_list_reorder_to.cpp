@@ -31,6 +31,53 @@ void print(lptr LL)
     cout << LL->data << " ";
     print(LL->next);
 }
+
+
+void reverse_from_half(lptr ll){
+    lptr sp = ll;
+    lptr fp = ll;
+    lptr prev_to_sp = NULL;
+
+    while(fp!=NULL){
+        prev_to_sp = sp;
+        sp = sp->next;
+        fp = fp->next;
+        if(fp==NULL) break;
+        fp = fp->next;
+    }
+    lptr join1 = prev_to_sp;
+    lptr joi2 = sp;
+    lptr curr = sp, prev = prev_to_sp, next;
+
+    while(curr!=NULL){
+        next = curr->next;
+        curr->next = prev;
+        prev = curr;
+        curr = next;
+    }
+
+    joi2->next = NULL;
+    join1->next = NULL;
+    // cout<<prev->data<<endl;
+    // print(ll);
+    // cout<<endl;
+    // print(prev);
+
+    lptr curr1 = ll, next1;
+    lptr curr2 = prev, next2; //in the half
+
+    while(curr2!=NULL){
+        next1 = curr1->next;
+        next2 = curr2->next;
+
+        deb2(curr1, curr2);
+        curr1->next = curr2;
+        curr2->next = next1;
+        curr1 = next1;
+        curr2 = next2;
+    }
+    print(ll);
+}
 int main()
 {
 #ifndef ONLINE_JUDGE
@@ -49,4 +96,6 @@ int main()
         insert(LL, x);
         cin >> x;
     }
+    reverse_from_half(LL);
+    // print(LL);
 }
