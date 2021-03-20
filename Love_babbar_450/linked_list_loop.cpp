@@ -26,18 +26,13 @@ bool loop_detection(lptr ll)
 {
     lptr sp = ll;
     lptr fp = ll;
-    while (true)
-    {
+    while(fp!=NULL||fp->next!=NULL){
         sp = sp->next;
-        fp = fp->next;
-        if (fp == NULL)
-            return false;
-        fp = fp->next;
-        if (fp == NULL)
-            return false;
-        if (sp == fp)
-            return true;
+        fp = fp->next->next;
+        if(sp==fp) return true;
     }
+
+    return false;
 }
 // bool loop_detection(ListNode * ll)
 // {

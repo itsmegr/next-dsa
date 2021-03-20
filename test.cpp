@@ -27,17 +27,17 @@ void takeArrayInput(int arr[], int n){
 
 int main()
 {
-    #ifndef ONLINE_JUDGE
-    freopen("input.txt", "r", stdin);
-    freopen("output.txt", "w", stdout);
-    #endif
-    ios_base::sync_with_stdio(false);
-    cin.tie(NULL);
-    cout.tie(NULL); 
+    // #ifndef ONLINE_JUDGE
+    // freopen("input.txt", "r", stdin);
+    // freopen("output.txt", "w", stdout);
+    // #endif
+    // ios_base::sync_with_stdio(false);
+    // cin.tie(NULL);
+    // cout.tie(NULL); 
 
 
     int t = 1;
-    cin >> t;
+    // cin >> t;
     while(t--) {
       solve();
     }
@@ -47,19 +47,12 @@ int main()
 
 void solve()
 {
-    int i, j, n, m;
-    cin>>n;
-    int a[n];
-    takeArrayInput(a, n);
-    
-    int maxRep = 0, cnt = 0;
-    
-    for(int i=0;i<n-1;i++){
-        if(a[i]==a[i+1])
-        cnt++;
-        else cnt = 0;
-        maxRep = max(cnt, maxRep);
-    }
-    cout<<maxRep+1<<endl;
+    int i, j, m;
+    i = 10;
+    j = 20;
+    int &n = i;
+    cout<<n;
+    n = n+1;
+    cout<<n;
 
 }
