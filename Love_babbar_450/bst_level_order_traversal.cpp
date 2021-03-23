@@ -103,15 +103,21 @@ void levelOrderTraversal(bstptr root)
     bstptr temp;
     queue<bstptr> q;
     q.push(root);
+    int n;
     while (!q.empty())
     {
-        temp = q.front();
-        q.pop();
-        cout << temp->data << " ";
-        if (temp->left)
-            q.push(temp->left);
-        if (temp->right)
-            q.push(temp->right);
+        n = q.size();
+        for (int i = 1; i <= n; i++)
+        {
+            temp = q.front();
+            q.pop();
+            cout << temp->data << " ";
+            if (temp->left)
+                q.push(temp->left);
+            if (temp->right)
+                q.push(temp->right);
+        }
+        cout<<endl;
     }
 }
 void ReverselevelOrderTraversal(bstptr root)
@@ -134,8 +140,9 @@ void ReverselevelOrderTraversal(bstptr root)
             q.push(temp->left);
     }
 
-    while(!s.empty()){
-        cout<<s.top()<<" ";
+    while (!s.empty())
+    {
+        cout << s.top() << " ";
         s.pop();
     }
 }
@@ -145,8 +152,8 @@ int diameter(bstptr root, int &dia)
         return 0;
     int lh = diameter(root->left, dia);
     int rh = diameter(root->right, dia);
-    dia = max(lh+rh+1, dia);
-    return max(lh, rh)+1;
+    dia = max(lh + rh + 1, dia);
+    return max(lh, rh) + 1;
 }
 int main()
 {
@@ -172,7 +179,8 @@ int main()
     // q.push(T);
     // levelOrderTraversalRec(q);
     // ReverselevelOrderTraversal(T);
-    int dia = 0;
-    diameter(T, dia);
-    deb(dia);
+    // int dia = 0;
+    // diameter(T, dia);
+    // deb(dia);
+    levelOrderTraversal(T);
 }

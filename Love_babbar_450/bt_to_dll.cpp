@@ -26,43 +26,21 @@ void insert(bstptr &T, int k)
             insert(T->right, k);
     }
 }
-void inorder(bstptr root)
+void inorder(bstptr root, vector<bstptr> &v)
 {
     if (root)
     {
         //part1
 
-        inorder(root->left);
+          inorder(root->left,v);
 
+          v.push_back(root);
         //part2
-        cout << root->data << " ";
 
-        inorder(root->right);
+         inorder(root->right,v);
 
         //part3;
     }
-}
-int height(bstptr root){
-    if(root == NULL) return 0;
-    return max(height(root->left), height(root->right)) +1;
-}
-void preorderTra(bstptr node, vector<bool> &visitedHeight, int curHeight){
-    if(node==NULL) return;
-    if(visitedHeight[curHeight-1]==false){
-        cout<<node->data<<" ";
-        visitedHeight[curHeight-1]=true;
-    }
-    preorderTra(node->left,visitedHeight, curHeight+1);
-    preorderTra(node->right,visitedHeight, curHeight+1);
-}
-//for right view just go to right first
-//and thiis is done
-//logic from every height only one element
-void leftView(bstptr root){
-    if(root==NULL) return;
-    int h =  height((root));
-    vector<bool> visitedHeight(h, false);
-    preorderTra(root, visitedHeight,1);
 }
 int main()
 {
@@ -81,5 +59,19 @@ int main()
         insert(T, n);
         cin >> n;
     }
-    leftView(T);
+    vector<bstptr> v;
+    inorder(T, v);
+    T = v[0];
+    bstptr prev = T;
+    T->left = NULL;
+    for(int i=1;i<v.size();i++){
+        prev->right = v[i];
+        v[i]->left = prev;
+        v[i]->right = NULL;
+        prev = v[i];
+    }
+    while(T!=NULL){
+        cout<<T->data<<" ";
+        T= T->right;
+    }
 }

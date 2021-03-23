@@ -42,27 +42,18 @@ void inorder(bstptr root)
         //part3;
     }
 }
-int height(bstptr root){
-    if(root == NULL) return 0;
-    return max(height(root->left), height(root->right)) +1;
-}
-void preorderTra(bstptr node, vector<bool> &visitedHeight, int curHeight){
-    if(node==NULL) return;
-    if(visitedHeight[curHeight-1]==false){
-        cout<<node->data<<" ";
-        visitedHeight[curHeight-1]=true;
+void Check(bstptr r1, bstptr r2, bool &ans){
+    if(r1==NULL&&r2==NULL) return;
+    if(r1==NULL||r2==NULL) {
+        ans=false;
+        return;
     }
-    preorderTra(node->left,visitedHeight, curHeight+1);
-    preorderTra(node->right,visitedHeight, curHeight+1);
-}
-//for right view just go to right first
-//and thiis is done
-//logic from every height only one element
-void leftView(bstptr root){
-    if(root==NULL) return;
-    int h =  height((root));
-    vector<bool> visitedHeight(h, false);
-    preorderTra(root, visitedHeight,1);
+    if(r1->data!=r2->data){
+        ans = false;
+        return;
+    }
+    Check(r1->left, r2->right, ans);
+    Check(r1->right, r2->left, ans);
 }
 int main()
 {
@@ -81,5 +72,4 @@ int main()
         insert(T, n);
         cin >> n;
     }
-    leftView(T);
 }
