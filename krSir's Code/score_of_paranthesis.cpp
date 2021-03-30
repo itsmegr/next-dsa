@@ -27,7 +27,7 @@ public:
             else
                 st.push(i);
         }
-
+        
         return go(0, n-1);
 
     }

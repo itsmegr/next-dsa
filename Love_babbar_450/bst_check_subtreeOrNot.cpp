@@ -42,15 +42,29 @@ void inorder(bstptr root)
         //part3;
     }
 }
-bool find(bstptr root, int k){
+string serialize(bstptr root, unordered_map<string, int> &um){
+    string s;
+    if(root==NULL){
+        s= s+'$';
+        return s;
+    }
+    s+=(char)root->data+48;
+    s=s+serialize(root->left, um);
+    s=s+serialize(root->right, um);
+    um[s]++;
+    return s;
+}
+bool dupSub(bstptr root)
+{
     if(root==NULL) return false;
-    if(root->data==k) return true;
-    if(root->data<k){
-        return find(root->left, k);
+    unordered_map<string, int> um;
+    serialize(root, um);
+    for(auto x:um){
+        if(x.second>=2&&x.first.length()>3){
+            return true;
+        }
     }
-    else {
-        return find(root->right, k);
-    }
+    return false;
 }
 int main()
 {
@@ -69,4 +83,5 @@ int main()
         insert(T, n);
         cin >> n;
     }
+    cout<<dupSub(T);
 }

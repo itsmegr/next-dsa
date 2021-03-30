@@ -5,9 +5,9 @@ typedef struct bstnode *bstptr;
 #define deb2(x, y) cout << #x << "=" << x << "," << #y << "=" << y << endl
 struct bstnode
 {
-    struct bstnode *left=NULL;
+    struct bstnode *left = NULL;
     int data;
-    struct bstnode *right=NULL;
+    struct bstnode *right = NULL;
 };
 void insert(bstptr &T, int k)
 {
@@ -42,15 +42,28 @@ void inorder(bstptr root)
         //part3;
     }
 }
-bool find(bstptr root, int k){
-    if(root==NULL) return false;
-    if(root->data==k) return true;
-    if(root->data<k){
-        return find(root->left, k);
+//we can use memoizATION
+int maxSumUtil(bstptr root)
+{
+    if (root == NULL)
+        return 0;
+
+    //exclude this
+    int excl = maxSumUtil(root->left) + maxSumUtil(root->right);
+
+    //include that
+    int incl = root->data;
+    if (root->left)
+    {
+        incl = maxSumUtil(root->left->left) + maxSumUtil(root->left->right);
     }
-    else {
-        return find(root->right, k);
+    if (root->right)
+    {
+        incl = maxSumUtil(root->right->left)+
+        maxSumUtil(root->right->right);
     }
+
+    return max(incl, excl);
 }
 int main()
 {
@@ -69,4 +82,5 @@ int main()
         insert(T, n);
         cin >> n;
     }
+    deb(maxSumUtil(T));
 }

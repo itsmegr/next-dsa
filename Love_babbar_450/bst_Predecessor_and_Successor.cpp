@@ -52,6 +52,14 @@ bool find(bstptr root, int k){
         return find(root->right, k);
     }
 }
+void prev(bstptr root, bstptr &pre){
+    if(root==NULL) return;
+    prev(root->left, pre);
+    if(pre) cout<<pre->data<<" ";
+    pre = root;
+    cout<<root->data<<endl;
+    prev(root->right, pre);
+}
 int main()
 {
 #ifndef ONLINE_JUDGE
@@ -69,4 +77,8 @@ int main()
         insert(T, n);
         cin >> n;
     }
+    inorder(T);
+    cout<<endl;
+    bstptr pre = NULL;
+    prev(T, pre);
 }

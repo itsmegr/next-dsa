@@ -5,9 +5,9 @@ typedef struct bstnode *bstptr;
 #define deb2(x, y) cout << #x << "=" << x << "," << #y << "=" << y << endl
 struct bstnode
 {
-    struct bstnode *left=NULL;
+    struct bstnode *left = NULL;
     int data;
-    struct bstnode *right=NULL;
+    struct bstnode *right = NULL;
 };
 void insert(bstptr &T, int k)
 {
@@ -42,15 +42,27 @@ void inorder(bstptr root)
         //part3;
     }
 }
-bool find(bstptr root, int k){
-    if(root==NULL) return false;
-    if(root->data==k) return true;
-    if(root->data<k){
-        return find(root->left, k);
+bstptr kthAncestor(bstptr root, int &k, int n, bool &found)
+{
+    if (root == NULL)
+        return NULL;
+    if (root->data == n)
+    {
+        found=true;
+        k = k - 1;
+        if(k==0) return root;
+        else return NULL;
     }
-    else {
-        return find(root->right, k);
-    }
+    bstptr l = kthAncestor(root->left, k, n, found);
+    bstptr r=NULL;
+    if(!found)
+    r = kthAncestor(root->right, k, n, found);
+
+    if(found) k=k-1;
+
+    if(k==0&&found) return root;
+
+    return l==NULL?r:l;
 }
 int main()
 {
@@ -68,5 +80,15 @@ int main()
     {
         insert(T, n);
         cin >> n;
+    }
+    int a,k;
+    cin>>a>>k;
+    bool found = false;
+    bstptr ans =kthAncestor(T,k,a, found);
+    if(ans){
+        deb(ans->data);
+    }
+    else{
+        cout<<-1<<endl;
     }
 }

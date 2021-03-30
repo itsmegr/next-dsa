@@ -42,15 +42,36 @@ void inorder(bstptr root)
         //part3;
     }
 }
-bool find(bstptr root, int k){
-    if(root==NULL) return false;
-    if(root->data==k) return true;
-    if(root->data<k){
-        return find(root->left, k);
+bstptr findLca(bstptr root, int n1, int n2){
+    if(root==NULL) return NULL;
+    if(root->data==n1||root->data==n2){
+        return root;
     }
-    else {
-        return find(root->right, k);
+
+    bstptr l = findLca(root->left, n1, n2);
+    bstptr r = findLca(root->right, n1, n2);
+    if(l&&r){
+        return root;
     }
+    return l==NULL?r:l;
+}
+int findHeight(bstptr root, int h, int k){
+    if(root==NULL) return -1;
+
+    if(root->data==k) return h;
+
+    int lh = findHeight(root->left, h+1,k);
+    int rh = findHeight(root->right, h+1,k);
+
+    return lh==-1?rh:lh;
+}
+int findDist(bstptr root, int a, int b) {
+    // Your code here
+    if(root==NULL) return 0;
+    bstptr lca  = findLca(root, a,b);
+    int ah = findHeight(lca, 1, a);
+    int bh = findHeight(lca, 1, b);
+    return ah+bh-2;
 }
 int main()
 {
@@ -69,4 +90,8 @@ int main()
         insert(T, n);
         cin >> n;
     }
+    int a, b;
+    cin>>a>>b;
+    cout<<findDist(T, a, b)<<endl;
+
 }

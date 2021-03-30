@@ -42,15 +42,14 @@ void inorder(bstptr root)
         //part3;
     }
 }
-bool find(bstptr root, int k){
-    if(root==NULL) return false;
-    if(root->data==k) return true;
-    if(root->data<k){
-        return find(root->left, k);
+void serialize(bstptr root, string &s){
+    if(root==NULL){
+        s= s+'$';
+        return;
     }
-    else {
-        return find(root->right, k);
-    }
+    s+=(char)root->data+48;
+    serialize(root->left,s);
+    serialize(root->right, s);
 }
 int main()
 {
@@ -69,4 +68,7 @@ int main()
         insert(T, n);
         cin >> n;
     }
+    string s;
+    serialize(T, s);
+    cout<<s;
 }

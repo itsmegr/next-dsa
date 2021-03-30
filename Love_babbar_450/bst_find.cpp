@@ -45,7 +45,7 @@ void inorder(bstptr root)
 bool find(bstptr root, int k){
     if(root==NULL) return false;
     if(root->data==k) return true;
-    if(root->data<k){
+    else if(root->data>k){
         return find(root->left, k);
     }
     else {
@@ -69,4 +69,7 @@ int main()
         insert(T, n);
         cin >> n;
     }
+    int k;
+    cin>>k;
+    cout<<find(T, k);
 }

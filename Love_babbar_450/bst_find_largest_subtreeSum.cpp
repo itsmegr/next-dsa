@@ -42,15 +42,18 @@ void inorder(bstptr root)
         //part3;
     }
 }
-bool find(bstptr root, int k){
-    if(root==NULL) return false;
-    if(root->data==k) return true;
-    if(root->data<k){
-        return find(root->left, k);
-    }
-    else {
-        return find(root->right, k);
-    }
+int largestSubtreeSumUtil(bstptr root, int &maxSum){
+    if(root==NULL) return 0;
+    int ls = largestSubtreeSumUtil(root->left, maxSum);
+    int rs = largestSubtreeSumUtil(root->right, maxSum);
+    maxSum = max(maxSum, ls +rs+root->data);
+    return ls +rs+root->data;
+}
+int largestSubtreeSum(bstptr root){
+    if(root==NULL) return 0;
+    int maxSum = INT_MIN;
+    largestSubtreeSumUtil(root, maxSum);
+    return maxSum;
 }
 int main()
 {
@@ -69,4 +72,5 @@ int main()
         insert(T, n);
         cin >> n;
     }
+    cout<<largestSubtreeSum(T);
 }
