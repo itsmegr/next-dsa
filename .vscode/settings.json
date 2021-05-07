@@ -4,6 +4,9 @@
         "string": "cpp",
         "string_view": "cpp",
         "iostream": "cpp",
-        "ostream": "cpp"
+        "ostream": "cpp",
+        "bst_check_subtreeornot": "cpp",
+        "bst_mirror": "cpp",
+        "bst_morris_traversal": "cpp"
     }
 }

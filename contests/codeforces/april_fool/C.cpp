@@ -17,6 +17,7 @@ typedef vector<pll> vpl;
 typedef vector<vi> vvi;
 typedef vector<vl> vvl;
 void solve();
+int *dp;
 void takeArrayInput(int arr[], int n)
 {
     int i;
@@ -37,7 +38,7 @@ int main()
     cout.tie(NULL);
 
     int t = 1;
-    cin >> t;
+    // cin >> t;
     while (t--)
     {
         solve();
@@ -45,54 +46,10 @@ int main()
     return 0;
 }
 
-// void merge(int arr1[], int arr2[], int n, int m)
-// {
-//     int i = 0, j = 0;
-//     while (i < n && j < m)
-//     {
-//         if (arr1[i] > arr2[j])
-//         {
-//             swap(arr1[i], arr2[j]);
-//         }
-//         int k = 0;
-//         while (arr2[k] > arr2[k + 1] && k < m - 1)
-//         {
-//             swap(arr2[k], arr2[k + 1]);
-//             k++;
-//         }
-//         i++;
-//     }
-// }
-
-void merge(int arr1[], int arr2[], int n, int m)
-{
-    int i=n-1,j=0;
-    while(i>=0&&j<m){
-        if(arr1[i]>arr2[j]){
-            swap(arr1[i--], arr2[j++]);
-        }
-        else break;
-    }
-
-    sort(arr1+0, arr1+n);
-    sort(arr2+0, arr2+m);
-}
 void solve()
 {
-    int i, j, n, m;
-    cin >> n >> m;
-    int a1[n], a2[m];
-    takeArrayInput(a1, n);
-    takeArrayInput(a2, m);
-    merge(a1, a2, n, m);
-    fo(i, n)
-    {
-        cout << a1[i] << " ";
-    }
-    cout << endl;
-    fo(i, m)
-    {
-        cout << a2[i] << " ";
-    }
-    cout << endl;
+    // int i, j, n, m;
+    int n;
+    cin >> n;
+    cout << fixed << setprecision(3) << (int)round(sqrt(n)) << endl;
 }
