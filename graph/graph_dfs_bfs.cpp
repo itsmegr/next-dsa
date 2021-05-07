@@ -7,7 +7,6 @@ class graph
 {
 public:
     map<T, list<pair<T, int>>> adjlist;
-    
     int v;
 
     void addEdge(T u, T v, int dist, bool bidirec = 1)
