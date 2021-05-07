@@ -11,7 +11,6 @@ public:
 
     void addEdge(T u, T v, int dist, bool bidirec = 1)
     {
-
         adjlist[u].push_back(make_pair(v, dist));
         //to tleast add the element 
         if(adjlist[v].empty()){
