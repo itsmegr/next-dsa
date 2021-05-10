@@ -45,12 +45,15 @@ public:
             q.pop();
 
             cout << front_element << " -> ";
-            visited[front_element] = true;
+           
 
             for (auto a : (adjlist[front_element]))
             {
-                if (!visited[a.first])
+                if (!visited[a.first]){
                     q.push(a.first);
+                    visited[front_element] = true;
+                }
+                   
             }
         }
     }
