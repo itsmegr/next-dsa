@@ -74,3 +74,4 @@ void solve()
     takeArrayInput(arr, n);
     cout<<getPairsCount(arr, n, k)<<endl;
 }
+

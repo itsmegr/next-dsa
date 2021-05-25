@@ -65,6 +65,7 @@ int minSwap(vi arr)
         if(arr[i]!=temp[i]){
             int init = arr[i];
             ans++;
+            //swaping the real ele at pos i in arr
             swap(arr[i], arr[h[temp[i]]]);
             //update the index
             h[init] = h[temp[i]];

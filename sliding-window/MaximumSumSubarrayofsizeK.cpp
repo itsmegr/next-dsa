@@ -67,11 +67,54 @@ int maxSubofK(int a[], int k, int n)
     }
     return ans;
 }
+class Solution
+{
+public:
+    int maxScore(vector<int> &cardPoints, int k)
+    {
+        int n = cardPoints.size();
+        int sumt = 0;
+        for (int x : cardPoints)
+            sumt = sumt + x;
+        int ws = n - k;
+        // deb2(n, k);
+         int ans = INT_MAX;
+        int sum = 0;
+        int start = 0, end = 0;
 
+        if (ws == 0)
+            return sumt;
+
+        while (end < n)
+        {
+            sum = sum + cardPoints[end];
+            // deb2(start, end);
+            // deb2(sum, ans);
+            if (end - start + 1 < ws)
+                end++;
+            else if (end - start + 1 == ws)
+            {
+                ans = min(sum, ans);
+                sum = sum - cardPoints[start];
+                start++;
+                end++;
+            }
+        }
+
+        return sumt - ans;
+    }
+};
 void solve()
 {
-    int i, j, n, m, k;
-    cin >> n >> k;
-    int a[n];
-    takeArrayInput(a, n);
+    int n, k;
+
+    cin>>n;
+    vi a(n, 0);
+    deb(n);
+    for(int i=0;i<n;i++){
+        cin>>a[i];
+    }
+    cin>>k;
+    Solution s;
+    cout<<s.maxScore(a, k)<<endl;
 }
