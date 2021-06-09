@@ -58,7 +58,7 @@ void dfsUtil(int u, vector<int> adj[], vector<bool> &visited)
     for (auto x : adj[u])
     {
         if (!visited[x])
-            dfsUtil(x,adj,visited);
+            dfsUtil(x, adj, visited);
     }
 }
 void dfs(int V, vector<int> adj[])
@@ -98,14 +98,14 @@ void bfs(int u, int V, vector<int> adj[])
 //     return find(parent[i], parent);
 // }
 //find with compression
-//means if the parent of current node is not 
+//means if the parent of current node is not
 //equal to the absParent make its parent direct absParent
 //becuase order doesnt matter we need only parent
 // {
 //     parent
 //     rank
 // }
-int find(int i, vpii &data){
+int find(int i, vpii &data) {
     if (data[i].first == i)
         return i;
     else
@@ -136,12 +136,12 @@ bool Union(int x, int y, vpii &data)
         return false; //union not possible already in same set
 
     //push smaller under bigger(smaller small in rank)
-    if(data[i].second<data[j].second){
+    if (data[i].second < data[j].second) {
         data[i].first = j;
     }
     else if (data[i].second > data[j].second)
         data[j].first = i;
-    else{
+    else {
         data[i].first = j;
         data[j].second++;
     }
@@ -155,10 +155,10 @@ bool solveGraphProblem()
     cin >> V >> E;
 
     vector<int> adj[V];
-    //put initail rank==0(every node in another set) and parent =-1
-    vpii data(V, {-1, 0});
-    for(int i=0;i<V;i++){
-        data[i].first = i; 
+    //put initail rank==0(every node in another set) and parent = i
+    vpii data(V, { -1, 0});
+    for (int i = 0; i < V; i++) {
+        data[i].first = i;
     }
     bool isCycle = false;
 
@@ -166,12 +166,12 @@ bool solveGraphProblem()
     {
         int u, v;
         cin >> u >> v;
-        adj[u].push_back(v);        
+        adj[u].push_back(v);
         adj[v].push_back(u);
-        if(!isCycle){
+        if (!isCycle) {
             if (!Union(u, v, data)) isCycle = true;
         }
-            
+
     }
     return isCycle;
 
@@ -180,5 +180,5 @@ bool solveGraphProblem()
 void solve()
 {
     //if it is graph problrm call
-    cout << "isCycle = " <<solveGraphProblem();
+    cout << "isCycle = " << solveGraphProblem();
 }

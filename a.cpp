@@ -1,13 +1,15 @@
 #include <bits/stdc++.h>
 using namespace std;
-#define fo(i, n) for (i = 0; i < n; i++)
-#define Fo(i, k, n) for (i = k; k < n ? i < n : i > n; k < n ? i += 1 : i -= 1)
-#define ll long long
-#define ull unsigned long long
 #define deb(x) cout << #x << "=" << x << endl
-#define deb2(x, y) cout << #x << "=" << x << "," << #y << "=" << y << endl
+#define debb(x, y) cout << #x << "=" << x << "," << #y << "=" << y << endl
+#define print(x) cout<<x<<endl;
+#define printt(x, y) cout<<x<<" "<<y<<endl;
 #define pb push_back
 #define mp make_pair
+#define ll long long
+#define ull unsigned long long
+#define fo(i, n) for (i = 0; i < n; i++)
+#define forr(i, k, n) for (i = k; k < n ? i < n : i > n; k < n ? i += 1 : i -= 1)
 typedef pair<int, int> pii;
 typedef pair<ll, ll> pll;
 typedef vector<int> vi;
@@ -16,13 +18,18 @@ typedef vector<pii> vpii;
 typedef vector<pll> vpl;
 typedef vector<vi> vvi;
 typedef vector<vl> vvl;
+void inp(vi &a, int n) {
+    a.assign(n, 0);
+    int i;
+    fo(i, n) {
+        cin >> a[i];
+    }
+}
+bool com(int a, int b) {
+    return a > b;
+}
 void solve();
 void solveGraphProblem();
-int *dp;
-vector<int> takeArrayInput(int n);
-void dfs();
-void bfs();
-
 int main()
 {
 #ifndef ONLINE_JUDGE
@@ -41,55 +48,6 @@ int main()
     }
     return 0;
 }
-vector<int> takeArrayInput(int n)
-{
-    vi arr(n, 0);
-    int i;
-    fo(i, n)
-    {
-        cin >> arr[i];
-    }
-    return arr;
-}
-void dfsUtil(int u, vector<int> adj[], vector<bool> &visited)
-{
-    cout << u << " ";
-    visited[u] = 1;
-    for (auto x : adj[u])
-    {
-        if (!visited[x])
-            dfsUtil(x,adj,visited);
-    }
-}
-void dfs(int V, vector<int> adj[])
-{
-    vector<bool> visited(V, 0);
-    for (int i = 0; i < V; i++)
-        if (!visited[i])
-            dfsUtil(i, adj, visited);
-}
-void bfs(int u, int V, vector<int> adj[])
-{
-    queue<int> q;
-    vector<bool> visited(V, 0);
-    q.push(u);
-    visited[u] = true;
-    int curr;
-    while (!q.empty())
-    {
-        curr = q.front();
-        q.pop();
-        cout << curr << " ";
-        for (int x : adj[curr])
-        {
-            if (!visited[x])
-            {
-                q.push(x);
-                visited[x] = true;
-            }
-        }
-    }
-}
 void solveGraphProblem()
 {
     int V, E;
@@ -104,65 +62,49 @@ void solveGraphProblem()
         adj[u].push_back(v);
     }
 }
-bool com(int a, int b){
-    return a>b;
+int evalRPN(vector<string>& tokens) {
+    stack<string> st;
+    for (string x : tokens) {
+        deb(x);
+        if (x == "+" || x == "-" || x == "*" || x == "/") {
+            int a = stoi(st.top());
+            st.pop();
+            int b = stoi(st.top());
+            st.pop();
+            debb(a, b);
+            int ans;
+            if (x == "+") {
+                ans = trunc((float)a + (float)b);
+            }
+            else if (x == "-") {
+                ans = trunc((float)a - (float)b);;
+            }
+            else if (x == "*") {
+                ans = trunc((float)a * (float)b);;
+            }
+            else if (x == "/") {
+                ans = trunc((float)a / (float)b);;
+            }
+            deb(ans);
+            st.push(to_string(ans));
+        }
+        else {
+
+            st.push(x);
+        }
+    }
+    return stoi(st.top());
 }
-
-// void solve()
-// {
-//     int n;
-//     cin>>n;
-//     vi a(n, 0);
-//     int i;
-//     int ans = 0;
-//     int neg=0, pos=0, zer=0;
-//     fo(i, n){
-//         cin>>a[i];
-//         if(a[i]<0) neg++;
-//         else if(a[i]>0) pos++;
-//         else zer++;
-//     }
-//     ans = neg+zer;
-//     if(zer>1){
-//         //no pos
-//     }
-//     else if(zer==1) {
-//         if(pos>0) ans+=1;
-//     }
-//     else if(zer==0){
-//         if (pos > 0)
-//             ans += 1;
-//     }
-//     cout<<ans<<endl;
-
-
-// }
-
-void solve(){
-    ll n;
+void solve() {
+    int n, i;
     cin >> n;
-    vl a(n);
-    int i;
-    fo(i, n){
-        cin>>a[i];
+    vector<string> tokens(n);
+    fo(i, n) {
+        cin >> tokens[i];
+        // deb(tokens[i]);
     }
-    sort(a.begin(), a.end());
-    // ll mx = mod;
-    ll ans = 1, ans1 = 1;
-    set<ll> st;
-    for (int i = 1; i < n; i++)
-    {
-        st.insert(abs(a[i] - a[i - 1]));
-        if (*st.begin() >= a[i])
-        {
-            ans1++;
-        }
-        else
-        {
-            ans1 -= 1;
-            st.erase(st.begin());
-        }
-        ans = max(ans1, ans);
-    }
-    cout<<ans<<endl;
+    print(evalRPN(tokens));
+
+
 }
+
